@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/TaskQueue.Api/TaskQueue.Api.csproj" />
+    <Project Path="src/TaskQueue.Listener/TaskQueue.Listener.csproj" />
+  </Folder>
+</Solution>

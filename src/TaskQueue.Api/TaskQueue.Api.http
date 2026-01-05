@@ -1,0 +1,73 @@
+@host = https://api.afrozeamjad.com/api-tasks
+@workerId = office-laptop
+@token = CorrectHorse
+@queue = office-laptop
+
+### Submit a new task
+POST {{host}}/?queue={{queue}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "command": "open-browser",
+  "parameters": {
+    "url": "https://github.com"
+  }
+}
+
+### Submit a run-script task (enable-nd-dev-env)
+POST {{host}}/?queue={{queue}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "command": "run-script",
+  "parameters": {
+    "name": "enable-nd-dev-env"
+  }
+}
+
+### Submit a run-script task (lock-workstation)
+POST {{host}}/?queue={{queue}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "command": "run-script",
+  "parameters": {
+    "name": "lock-workstation"
+  }
+}
+
+### Get queue count
+GET {{host}}/count?queue={{queue}}
+Authorization: Bearer {{token}}
+
+### Peek all tasks in queue
+GET {{host}}/?queue={{queue}}
+Authorization: Bearer {{token}}
+
+### Poll for next task (moves to processing)
+GET {{host}}/poll?queue={{queue}}
+X-Worker-Id: {{workerId}}
+Authorization: Bearer {{token}}
+
+### Get tasks currently being processed
+GET {{host}}/processing?queue={{queue}}
+X-Worker-Id: {{workerId}}
+Authorization: Bearer {{token}}
+
+### Acknowledge task completion (replace {taskId} with actual id)
+POST {{host}}/15ed02c2-a8ce-4977-8d90-7d2d2358e803/ack?queue={{queue}}
+X-Worker-Id: {{workerId}}
+Authorization: Bearer {{token}}
+
+### Reject task and requeue
+POST {{host}}/47b5059e-b68c-4a60-9961-fd68666ab93b/reject?queue={{queue}}&requeue=true
+X-Worker-Id: {{workerId}}
+Authorization: Bearer {{token}}
+
+### Reject task and discard
+POST {{host}}/{taskId}/reject?queue={{queue}}&requeue=false
+X-Worker-Id: {{workerId}}
+Authorization: Bearer {{token}}
